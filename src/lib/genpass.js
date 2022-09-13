@@ -48,7 +48,7 @@ function addSymbols(passwordWords) {
 
 function addNumbers(passwordWords) {
   const leet = new Leet({ numeric: true, random: false })
-  leet.numbers = function () {
+  leet.numeric = function () {
     return {
       a: ['4'],
       b: ['8'],
