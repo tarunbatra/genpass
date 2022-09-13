@@ -25,6 +25,7 @@ export default function GenPass({
 }
 
 console.log(GenPass({ symbols: true }))
+console.log(GenPass({ numbers: true }))
 
 function getWords(length, language) {
   switch (language) {
@@ -48,6 +49,9 @@ function addSymbols(passwordWords) {
 
 function addNumbers(passwordWords) {
   const leet = new Leet({ numeric: true, random: false })
+  leet.symbols = function () {
+    return {}
+  }
   leet.numeric = function () {
     return {
       a: ['4'],
