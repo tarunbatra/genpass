@@ -56,7 +56,5 @@ function addNumbers(passwordWords) {
       o: ['0']
     }
   }
-  return passwordWords.map((word) =>
-    leet.encode(word)
-  )
+  return passwordWords.map((word) => leet.encode(word))
 }
