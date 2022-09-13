@@ -14,36 +14,49 @@ export default function GenPass({
   language = 'en',
   delimeter = '-'
 } = {}) {
-  let passwordCandidateArray = niceware.generatePassphrase(length * 2)
+  let passwordWords = getWords(length, language)
   if (symbols) {
-    const leet = new Leet({ numeric: false, random: false })
-
-    leet.symbols = function () {
-      return {
-        a: ['@'],
-        b: ['8'],
-        s: ['$']
-      }
-    }
-    passwordCandidateArray = passwordCandidateArray.map((word) =>
-      leet.encode(word)
-    )
+    passwordWords = addSymbols(passwordWords)
   }
   if (numbers) {
-    const leet = new Leet({ numeric: true, random: false })
-    leet.numbers = function () {
-      return {
-        a: ['4'],
-        b: ['8'],
-        e: ['3'],
-        o: ['0']
-      }
-    }
-    passwordCandidateArray = passwordCandidateArray.map((word) =>
-      leet.encode(word)
-    )
+    passwordWords = addNumbers(passwordWords)
   }
-  return passwordCandidateArray.join(delimeter)
+  return passwordWords.join(delimeter)
 }
 
 console.log(GenPass({ symbols: true }))
+
+function getWords(length, language) {
+  switch (language) {
+    case 'en':
+      return niceware.generatePassphrase(length * 2)
+  }
+}
+
+function addSymbols(passwordWords) {
+  const leet = new Leet({ numeric: false, random: false })
+
+  leet.symbols = function () {
+    return {
+      a: ['@'],
+      b: ['8'],
+      s: ['$']
+    }
+  }
+  return passwordWords.map((word) => leet.encode(word))
+}
+
+function addNumbers(passwordWords) {
+  const leet = new Leet({ numeric: true, random: false })
+  leet.numbers = function () {
+    return {
+      a: ['4'],
+      b: ['8'],
+      e: ['3'],
+      o: ['0']
+    }
+  }
+  return passwordWords.map((word) =>
+    leet.encode(word)
+  )
+}
