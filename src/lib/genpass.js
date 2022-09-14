@@ -4,7 +4,7 @@ import { LANG, TYPE, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, MAX_PASSPHRASE_SIZE 
 import randomBytes from 'randombytes'
 // import { getWordsList } from 'most-common-words-by-language'
 import niceware from 'niceware'
-import checkPwnedPasswords from 'check-pwnedpasswords'
+// import checkPwnedPasswords from 'check-pwnedpasswords'
 
 /**
  * GenPass
@@ -34,7 +34,7 @@ export default async function GenPass({
 
     while (generateAnotherPassword && generateCount < 5) {
       generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
-      const result = await checkPwnedPasswords(generatedPassword);
+      const result = { pwned: false };
       if (!result.pwned) {
         generateAnotherPassword = false
       } else {

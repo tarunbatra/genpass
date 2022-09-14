@@ -18,17 +18,21 @@ const PasswordGenerator = (props) => {
   const [generatedPassword, setGeneratedPassword] = React.useState('');
 
   const handleRegeneration = () => {
-    window.alert('TODO: Implement password regeneration');
+    // window.alert('TODO: Implement password regeneration');
   };
 
   const handleCopy = () => {
     window.alert('TODO: Implement password copy');
   };
 
+  const getPasswordAndSetIt = async () => {
+    const password = await genpass({ type, length, symbols: hasSymbols, numbers: hasNumbers });
+    setGeneratedPassword(password);
+  };
+
   React.useEffect(() => {
     // TODO: FIXME receiving error when calling genpass
-    // const password = genpass({ type, length, symbols: hasSymbols, numbers: hasNumbers });
-    // setGeneratedPassword(password);
+    getPasswordAndSetIt();
   }, [type, length, hasSymbols, hasNumbers]);
 
   return (
