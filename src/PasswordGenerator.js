@@ -25,7 +25,7 @@ const PasswordGenerator = () => {
             borderRadius: '7px',
             width: '300px',
             '& input.Mui-disabled': {
-              backgroundColor: '#eee',
+              backgroundColor: '#e6e6e6',
               borderRadius: 'inherit',
               '-webkit-text-fill-color': '#333',
               fontSize: '22px',
@@ -33,7 +33,7 @@ const PasswordGenerator = () => {
               textAlign: 'center',
             },
             '&.MuiInputBase-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#ddd',
+              borderColor: '#ccc',
             },
           }}
           disabled
@@ -47,13 +47,29 @@ const PasswordGenerator = () => {
             variant="outlined"
             startIcon={<ReplayIcon />}
             onClick={handleRegeneration}
+            sx={{
+              backgroundColor: '#eee',
+              borderColor: '#ccc',
+              color: '#333',
+              padding: '8px 16px',
+              textTransform: 'none',
+            }}
           >
             Regenerate
           </Button>
           <Button
             variant="contained"
-            endIcon={<ContentCopyIcon />}
+            startIcon={<ContentCopyIcon />}
             onClick={handleCopy}
+            sx={{
+              backgroundColor: '#1362dd',
+              boxShadow: '0',
+              padding: '8px 16px',
+              textTransform: 'none',
+              '&:hover, &:active': {
+                boxShadow: '0',
+              },
+            }}
           >
             Copy
           </Button>
