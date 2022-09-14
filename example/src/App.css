@@ -45,7 +45,7 @@ main {
   border: 1px solid #ccc;
   border-radius: 20px;
   padding: 5px;
-  height: 350px
+  min-height: 350px;
 }
 
 footer {
