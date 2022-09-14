@@ -27,7 +27,6 @@ const PasswordGenerator = (props) => {
   };
 
   React.useEffect(() => {
-    // TODO: FIXME receiving error when calling genpass
     getNewPasswordAndSetIt();
   }, [type, length, hasSymbols, hasNumbers]);
 
@@ -52,7 +51,7 @@ const PasswordGenerator = (props) => {
               borderColor: '#ccc',
             },
           }}
-          readOnly
+          disabled
           fullWidth
         />
         <Stack
