@@ -17,22 +17,18 @@ const PasswordGenerator = (props) => {
   const [hasNumbers, setHasNumbers] = React.useState(false);
   const [generatedPassword, setGeneratedPassword] = React.useState('');
 
-  const handleRegeneration = () => {
-    // window.alert('TODO: Implement password regeneration');
-  };
-
-  const handleCopy = () => {
-    window.alert('TODO: Implement password copy');
-  };
-
-  const getPasswordAndSetIt = async () => {
+  const getNewPasswordAndSetIt = async () => {
     const password = await genpass({ type, length, symbols: hasSymbols, numbers: hasNumbers });
     setGeneratedPassword(password);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedPassword)
+  };
+
   React.useEffect(() => {
     // TODO: FIXME receiving error when calling genpass
-    getPasswordAndSetIt();
+    getNewPasswordAndSetIt();
   }, [type, length, hasSymbols, hasNumbers]);
 
   return (
@@ -66,7 +62,7 @@ const PasswordGenerator = (props) => {
           <Button
             variant="outlined"
             startIcon={<ReplayIcon />}
-            onClick={handleRegeneration}
+            onClick={getNewPasswordAndSetIt}
             sx={{
               backgroundColor: '#eee',
               borderColor: '#ccc',
