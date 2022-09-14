@@ -8,7 +8,7 @@ import logo from './logo.svg'
 
 const App = () => {
   return (
-    <div class="container">
+    <div className="container">
       <main>
         <section className="copy">
           <img id="logo" src={logo} alt="Okta" />

@@ -133,7 +133,7 @@ const PasswordGenerator = (props) => {
               <FormLabel id="symbolsLabel">Symbols:</FormLabel>
               <Switch
                 checked={hasSymbols}
-                onChange={(e) => { setHasSymbols(event.target.checked); }}
+                onChange={(e) => { setHasSymbols(e.target.checked); }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
             </Stack>
