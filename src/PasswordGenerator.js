@@ -117,8 +117,8 @@ const PasswordGenerator = (props) => {
                     },
                   }}
                 >
-                  <MenuItem value={TYPE.RANDOM}>Random password</MenuItem>
                   <MenuItem value={TYPE.PASSPHRASE}>Passphrase</MenuItem>
+                  <MenuItem value={TYPE.RANDOM}>Random password</MenuItem>
                   <MenuItem value={TYPE.PIN}>PIN</MenuItem>
                 </Select>
               </Stack>
