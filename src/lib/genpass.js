@@ -1,32 +1,58 @@
-/**
- * @param opts object
- * @param opts.numbers boolean
- * @param opts.symbols boolean
- * @param opts.language string
- */
 import niceware from 'niceware'
 import Leet from 'l33t'
+import srp from 'secure-random-password'
+import { LANG, TYPE } from './constants'
 
+/**
+ * GenPass
+ * @param {string} type=passphrase
+ * @param {number} length=4
+ * @param {boolean} symbols=false
+ * @param {boolean} numbers=false
+ * @param {string} language=en
+ * @param {string} delimeter='-'
+ * @returns {string} Generated password
+ */
 export default function GenPass({
+  type = TYPE.PASSPHRASE,
   length = 4,
   symbols = false,
   numbers = false,
-  language = 'en',
+  language = LANG.EN,
   delimeter = '-'
 } = {}) {
-  let passwordWords = getWords(length, language)
-  if (symbols) {
-    passwordWords = addSymbols(passwordWords)
+  switch (type) {
+    case TYPE.PASSPHRASE: {
+      let passwordWords = getWords(length, language)
+      if (symbols) {
+        passwordWords = addSymbols(passwordWords)
+      }
+      if (numbers) {
+        passwordWords = addNumbers(passwordWords)
+      }
+      return passwordWords.join(delimeter)
+    }
+    case TYPE.RANDOM: {
+      return srp.randomString({
+        length,
+        avoidAmbiguous: true
+      })
+    }
+    case TYPE.PIN: {
+      return srp.randomPassword({
+        length,
+        characters: srp.digits
+      })
+    }
   }
-  if (numbers) {
-    passwordWords = addNumbers(passwordWords)
-  }
-  return passwordWords.join(delimeter)
 }
 
-console.log(GenPass({ symbols: true }))
-console.log(GenPass({ numbers: true }))
-
+/**
+ * getWords
+ * @param {number} length
+ * @param {string} language
+ * @returns {Array} Array of words
+ */
 function getWords(length, language) {
   switch (language) {
     case 'en':
@@ -34,20 +60,30 @@ function getWords(length, language) {
   }
 }
 
-function addSymbols(passwordWords) {
+/**
+ * addSymbols
+ * @param {Array} passwordWords
+ * @returns {Array} passwordWords with symbols
+ */
+function addSymbols(passwordWords = []) {
   const leet = new Leet({ numeric: false, random: false })
 
   leet.symbols = function () {
     return {
       a: ['@'],
-      b: ['8'],
+      i: ['!'],
       s: ['$']
     }
   }
   return passwordWords.map((word) => leet.encode(word))
 }
 
-function addNumbers(passwordWords) {
+/**
+ * addNumbers
+ * @param {Array} passwordWords
+ * @returns {Array} passwordWords with numbers
+ */
+function addNumbers(passwordWords = []) {
   const leet = new Leet({ numeric: true, random: false })
   leet.symbols = function () {
     return {}

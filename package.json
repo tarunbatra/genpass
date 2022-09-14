@@ -57,6 +57,7 @@
     "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.10.5",
     "l33t": "^1.0.1",
-    "niceware": "^4.0.0"
+    "niceware": "^4.0.0",
+    "secure-random-password": "^0.2.3"
   }
 }
