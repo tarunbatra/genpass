@@ -103,7 +103,7 @@ const PasswordGenerator = (props) => {
                     color: '#777',
                     fontSize: '14px',
                   }}>
-                  Type:
+                  Type
                 </FormLabel>
                 <Select
                   labelId="genType"
@@ -124,8 +124,8 @@ const PasswordGenerator = (props) => {
               </Stack>
             </FormControl>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-              <FormLabel id="lengthLabel">Words:</FormLabel>
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+              <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}> Words</FormLabel>
               <OutlinedInput
                 value={length}
                 type="number"
@@ -133,11 +133,23 @@ const PasswordGenerator = (props) => {
                 id="length"
                 onChange={(e) => { setLength(e.target.value) }}
                 size="small"
+                sx={{
+                  backgroundColor: '#fff',
+                  fontSize: '14px',
+                  width: '50px',
+                  '& input': {
+                    padding: '6px 0',
+                    textAlign: 'center',
+                  },
+                  '& input::-webkit-inner-spin-button, & input::-webkit-outer-spin-button': {
+                    '-webkit-appearance': 'none',
+                  },
+                }}
               />
             </Stack>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-              <FormLabel id="numbersLabel">Numbers:</FormLabel>
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+              <FormLabel id="numbersLabel" sx={{ color: '#333', fontSize: '14px' }}>Numbers</FormLabel>
               <Switch
                 checked={hasNumbers}
                 onChange={(e) => { setHasNumbers(e.target.checked); }}
@@ -145,8 +157,8 @@ const PasswordGenerator = (props) => {
               />
             </Stack>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-              <FormLabel id="symbolsLabel">Symbols:</FormLabel>
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+              <FormLabel id="symbolsLabel" sx={{ color: '#333', fontSize: '14px' }}>Symbols</FormLabel>
               <Switch
                 checked={hasSymbols}
                 onChange={(e) => { setHasSymbols(e.target.checked); }}
