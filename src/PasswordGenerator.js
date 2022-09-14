@@ -90,6 +90,7 @@ const PasswordGenerator = (props) => {
           </Button>
         </Stack>
         <Box sx={{
+          mt: '30px !important',
           backgroundColor: '#f5f5f5',
           borderRadius: '10px',
           padding: '15px',
