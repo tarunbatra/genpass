@@ -39,7 +39,7 @@ const PasswordGenerator = (props) => {
           sx={{
             borderRadius: '7px',
             width: '300px',
-            '& input.Mui-disabled': {
+            '& input.MuiInputBase-readOnly': {
               backgroundColor: '#e6e6e6',
               borderRadius: 'inherit',
               '-webkit-text-fill-color': '#333',
@@ -47,11 +47,11 @@ const PasswordGenerator = (props) => {
               padding: '10px',
               textAlign: 'center',
             },
-            '&.MuiInputBase-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+            '&.MuiInputBase-root.MuiInputBase-readOnly .MuiOutlinedInput-notchedOutline': {
               borderColor: '#ccc',
             },
           }}
-          disabled
+          readOnly
           fullWidth
         />
         <Stack
@@ -89,21 +89,37 @@ const PasswordGenerator = (props) => {
             Copy
           </Button>
         </Stack>
-        <Box sx={{ backgroundColor: '#f5f5f6', padding: '20px', borderRadius: '4px' }}>
+        <Box sx={{
+          backgroundColor: '#f5f5f5',
+          borderRadius: '10px',
+          padding: '15px',
+        }}>
           <Stack direction="column" spacing={2}>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center">
-                <FormLabel id="genType">Type:</FormLabel>
+              <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="baseline" gap={2}>
+                <FormLabel
+                  id="genType"
+                  sx={{
+                    color: '#777',
+                    fontSize: '14px',
+                  }}>
+                  Type:
+                </FormLabel>
                 <Select
                   labelId="genType"
                   id="type"
                   value={type}
-                  sx={{ marginTop: 0 }}
                   onChange={(e) => { setType(e.target.value) }}
+                  sx={{
+                    fontSize: '14px',
+                    '&.MuiInputBase-root': {
+                      marginTop: 0,
+                    },
+                  }}
                 >
+                  <MenuItem value={TYPE.RANDOM}>Random password</MenuItem>
                   <MenuItem value={TYPE.PASSPHRASE}>Passphrase</MenuItem>
-                  <MenuItem value={TYPE.RANDOM}>Random</MenuItem>
-                  <MenuItem value={TYPE.PIN}>Pin</MenuItem>
+                  <MenuItem value={TYPE.PIN}>PIN</MenuItem>
                 </Select>
               </Stack>
             </FormControl>
