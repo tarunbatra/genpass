@@ -26,6 +26,14 @@ class Example extends Component {
 }
 ```
 
+
+## To test
+
+- Ensure you have the latest dependencies by running `yarn` at repo top-level
+- You may need to delete `yarn.lock` and re-run `yarn`. There is a bug where different users need a differnt yarn lock at the moment.
+- Start a dev server for the libary by running `yarn start` and leave that running in a shell.
+- To start the example app, `cd/example` and run `yarn start`
+
 ## License
 
 MIT © [tarunbatra](https://github.com/tarunbatra)
