@@ -21,7 +21,21 @@ const PasswordGenerator = () => {
           type="text"
           // TODO: Add password gen function here
           value="ABC!@#123"
-          sx={{ minWidth: '200px', maxWidth: '320px' }}
+          sx={{
+            borderRadius: '7px',
+            width: '300px',
+            '& input.Mui-disabled': {
+              backgroundColor: '#eee',
+              borderRadius: 'inherit',
+              '-webkit-text-fill-color': '#333',
+              fontSize: '22px',
+              padding: '10px',
+              textAlign: 'center',
+            },
+            '&.MuiInputBase-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#ddd',
+            },
+          }}
           disabled
           fullWidth
         />
