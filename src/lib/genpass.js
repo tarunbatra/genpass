@@ -2,7 +2,8 @@ import Leet from 'l33t'
 import srp from 'secure-random-password'
 import { LANG, TYPE, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, MAX_PASSPHRASE_SIZE } from './constants'
 import randomBytes from 'randombytes'
-import { getWordsList } from 'most-common-words-by-language'
+// import { getWordsList } from 'most-common-words-by-language'
+import niceware from 'niceware'
 import checkPwnedPasswords from 'check-pwnedpasswords'
 
 /**
@@ -83,20 +84,21 @@ function generatePassword(type, length, symbols, numbers, language, delimeter) {
  */
 function getWords(length, language) {
 
-  let languageCode = SUPPORTED_LANGUAGES[language]
-
-  if (!languageCode) {
-    languageCode = DEFAULT_LANGUAGE
-  }
-
-  const dictionary = getWordsList(languageCode)
-
-  return generatePassphrase(length * 2, dictionary)
-
-  // switch (language) {
-  //   case 'en':
-  //     return niceware.generatePassphrase(length * 2)
+  // let languageCode = SUPPORTED_LANGUAGES[language]
+  //
+  // if (!languageCode) {
+  //   languageCode = DEFAULT_LANGUAGE
   // }
+  //
+  // const dictionary = getWordsList(languageCode)
+  //
+  // return generatePassphrase(length * 2, dictionary)
+
+  switch (language) {
+    case 'en':
+      return niceware.generatePassphrase(length * 2)
+  }
+  return niceware.generatePassphrase(length * 2)
 }
 
 /**
