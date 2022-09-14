@@ -3,6 +3,7 @@ import srp from 'secure-random-password'
 import { LANG, TYPE, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, MAX_PASSPHRASE_SIZE } from './constants'
 import randomBytes from 'randombytes'
 import { getWordsList } from 'most-common-words-by-language'
+import checkPwnedPasswords from 'check-pwnedpasswords'
 
 /**
  * GenPass
@@ -12,16 +13,42 @@ import { getWordsList } from 'most-common-words-by-language'
  * @param {boolean} numbers=false
  * @param {string} language=en
  * @param {string} delimeter='-'
+ * @param {boolean} checkForPwned=false
  * @returns {string} Generated password
  */
-export default function GenPass({
-  type = TYPE.PASSPHRASE,
-  length = 4,
-  symbols = false,
-  numbers = false,
-  language = LANG.EN,
-  delimeter = '-'
-} = {}) {
+export default async function GenPass({
+                                        type = TYPE.PASSPHRASE,
+                                        length = 4,
+                                        symbols = false,
+                                        numbers = false,
+                                        language = LANG.EN,
+                                        delimeter = '-',
+                                        checkForPwned = false
+                                      } = {}) {
+  let generatedPassword;
+
+  if (checkForPwned && type !== TYPE.PIN) {
+    let generateAnotherPassword = true;
+    let generateCount = 0;
+
+    while (generateAnotherPassword && generateCount < 5) {
+      generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
+      const result = await checkPwnedPasswords(generatedPassword);
+      if (!result.pwned) {
+        generateAnotherPassword = false
+      } else {
+        console.debug("generated password '%s' found in pwned list for %d times, generating again", generatedPassword, result.occurrences)
+      }
+      generateCount++;
+    }
+  } else {
+    generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
+  }
+
+  return generatedPassword;
+}
+
+function generatePassword(type, length, symbols, numbers, language, delimeter) {
   switch (type) {
     case TYPE.PASSPHRASE: {
       let passwordWords = getWords(length, language)
