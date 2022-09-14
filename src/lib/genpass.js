@@ -1,7 +1,8 @@
-import niceware from 'niceware'
 import Leet from 'l33t'
 import srp from 'secure-random-password'
-import { LANG, TYPE } from './constants'
+import { LANG, TYPE, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, MAX_PASSPHRASE_SIZE } from './constants'
+import randomBytes from 'randombytes'
+import { getWordsList } from 'most-common-words-by-language'
 
 /**
  * GenPass
@@ -54,10 +55,21 @@ export default function GenPass({
  * @returns {Array} Array of words
  */
 function getWords(length, language) {
-  switch (language) {
-    case 'en':
-      return niceware.generatePassphrase(length * 2)
+
+  let languageCode = SUPPORTED_LANGUAGES[language]
+
+  if (!languageCode) {
+    languageCode = DEFAULT_LANGUAGE
   }
+
+  const dictionary = getWordsList(languageCode)
+
+  return generatePassphrase(length * 2, dictionary)
+
+  // switch (language) {
+  //   case 'en':
+  //     return niceware.generatePassphrase(length * 2)
+  // }
 }
 
 /**
@@ -97,4 +109,59 @@ function addNumbers(passwordWords = []) {
     }
   }
   return passwordWords.map((word) => leet.encode(word))
+}
+
+
+/**
+ * From niceware:
+ * Generates a random passphrase with the specified number of bytes.
+ * NOTE: `size` must be an even number.
+ * @param {number} size The number of random bytes to use
+ * @param {Array} wordlist dictionary
+ * @returns {Array.<string>}
+ */
+function generatePassphrase(size/* : number */, wordlist) {
+  if (typeof size !== 'number' || size < 0 || size > MAX_PASSPHRASE_SIZE) {
+    throw new Error(`Size must be between 0 and ${MAX_PASSPHRASE_SIZE} bytes.`)
+  }
+  const bytes = randomBytes(size)
+  return bytesToPassphrase(bytes, wordlist)
+}
+
+/**
+ * From niceware:
+ * Converts a byte array into a passphrase.
+ * @param {Buffer} bytes The bytes to convert
+ * @param {Array} wordlist dictionary
+ * @returns {Array.<string>}
+ */
+function bytesToPassphrase(bytes, wordlist) {
+  // XXX: Uint8Array should only be used when this is called in the browser
+  // context.
+  if (!Buffer.isBuffer(bytes) &&
+    !(typeof window === 'object' && bytes instanceof window.Uint8Array)) {
+    throw new Error('Input must be a Buffer or Uint8Array.')
+  }
+  if (bytes.length % 2 === 1) {
+    throw new Error('Only even-sized byte arrays are supported.')
+  }
+  const words = []
+  const totalWordsLength = wordlist.length;
+  for (const entry of bytes.entries()) {
+    const index = entry[0]
+    const byte = entry[1]
+    const next = bytes[index + 1]
+    if (index % 2 === 0) {
+      // wordList from our dictionary is small so updated the logic to get the wordIndex
+      // const wordIndex = byte * 256 + next
+      const wordIndex = totalWordsLength - ( byte + next )
+      const word = wordlist[wordIndex]
+      if (!word) {
+        throw new Error('Invalid byte encountered')
+      } else {
+        words.push(word)
+      }
+    }
+  }
+  return words
 }

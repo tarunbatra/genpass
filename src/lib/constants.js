@@ -7,3 +7,13 @@ export const TYPE = {
   RANDOM: 'random',
   PIN: 'pin'
 }
+
+export const SUPPORTED_LANGUAGES = {
+  en: 'english',
+  fr: 'french',
+  es: 'spanish'
+}
+
+export const DEFAULT_LANGUAGE = 'english'
+
+export const MAX_PASSPHRASE_SIZE = 1024; // Max size of passphrase in bytes

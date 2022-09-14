@@ -58,6 +58,8 @@
     "@mui/material": "^5.10.5",
     "l33t": "^1.0.1",
     "niceware": "^4.0.0",
-    "secure-random-password": "^0.2.3"
+    "secure-random-password": "^0.2.3",
+    "randombytes": "^2.1.0",
+    "most-common-words-by-language": "^3.0.10"
   }
 }
