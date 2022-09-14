@@ -92,13 +92,14 @@ const PasswordGenerator = (props) => {
         </Stack>
         <Box sx={{ backgroundColor: '#f5f5f6', padding: '20px', borderRadius: '4px' }}>
           <Stack direction="column" spacing={2}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
+            <FormControl variant="standard" sx={{ minWidth: 120 }}>
+              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center">
                 <FormLabel id="genType">Type:</FormLabel>
                 <Select
                   labelId="genType"
                   id="type"
                   value={type}
+                  sx={{ marginTop: 0 }}
                   onChange={(e) => { setType(e.target.value) }}
                 >
                   <MenuItem value={TYPE.PASSPHRASE}>Passphrase</MenuItem>
