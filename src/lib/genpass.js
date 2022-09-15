@@ -1,10 +1,14 @@
 import Leet from 'l33t'
 import srp from 'secure-random-password'
-import { LANG, TYPE, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, MAX_PASSPHRASE_SIZE } from './constants'
+import { LANG, TYPE, MAX_PASSPHRASE_SIZE } from './constants'
+import { ENGLISH } from './dictionary/english'
+import { FRENCH } from './dictionary/french'
+import { SPANISH } from './dictionary/spanish'
 import randomBytes from 'randombytes'
-// import { getWordsList } from 'most-common-words-by-language'
+import axios from 'axios'
 import niceware from 'niceware'
 // import checkPwnedPasswords from 'check-pwnedpasswords'
+const crypto = require('crypto');
 
 /**
  * GenPass
@@ -34,11 +38,25 @@ export default async function GenPass({
 
     while (generateAnotherPassword && generateCount < 5) {
       generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
-      const result = { pwned: false };
-      if (!result.pwned) {
+
+      const hash = crypto.createHash('sha1').update(generatedPassword).digest('hex').toUpperCase();
+      const range = hash.substr(0, 5);
+      const remainder = hash.substr(5);
+
+      const response = await axios.get(`https://api.pwnedpasswords.com/range/${range}`)
+      let pwnedResult = response.data
+      const match = pwnedResult.split('\r\n').find((hashRemainder) => hashRemainder.startsWith(remainder));
+      let pwned = false;
+      let occurrences = 0;
+      if (match) {
+        pwned = true;
+        occurrences = parseInt(match.split(':')[1], 10);
+      }
+
+      if (!pwned) {
         generateAnotherPassword = false
       } else {
-        console.debug("generated password '%s' found in pwned list for %d times, generating again", generatedPassword, result.occurrences)
+        console.debug("generated password '%s' found in pwned list for %d times, generating again", generatedPassword, occurrences)
       }
       generateCount++;
     }
@@ -84,21 +102,21 @@ function generatePassword(type, length, symbols, numbers, language, delimeter) {
  */
 function getWords(length, language) {
 
-  // let languageCode = SUPPORTED_LANGUAGES[language]
-  //
-  // if (!languageCode) {
-  //   languageCode = DEFAULT_LANGUAGE
-  // }
-  //
-  // const dictionary = getWordsList(languageCode)
-  //
-  // return generatePassphrase(length * 2, dictionary)
-
-  switch (language) {
-    case 'en':
-      return niceware.generatePassphrase(length * 2)
+  if (language !== LANG.ES || language !== LANG.FR) {
+    return niceware.generatePassphrase(length * 2)
   }
-  return niceware.generatePassphrase(length * 2)
+
+  let dictionary = ENGLISH
+  switch (language) {
+    case LANG.FR:
+      dictionary = FRENCH
+      break
+    case LANG.ES:
+      dictionary = SPANISH
+      break
+  }
+
+  return generatePassphrase(length * 2, dictionary)
 }
 
 /**

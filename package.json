@@ -61,6 +61,7 @@
     "secure-random-password": "^0.2.3",
     "randombytes": "^2.1.0",
     "most-common-words-by-language": "^3.0.10",
-    "check-pwnedpasswords": "^1.0.2"
+    "check-pwnedpasswords": "^1.0.2",
+    "axios": "^0.27.2"
   }
 }
