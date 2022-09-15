@@ -136,22 +136,24 @@ const PasswordGenerator = (props) => {
                   <MenuItem value={TYPE.RANDOM}>Random password</MenuItem>
                   <MenuItem value={TYPE.PIN}>PIN</MenuItem>
                 </Select>
-                <Select
-                  labelId="genType"
-                  id="language"
-                  value={language}
-                  onChange={(e) => { setLanguage(e.target.value) }}
-                  sx={{
-                    fontSize: '14px',
-                    '&.MuiInputBase-root': {
-                      marginTop: 0,
-                    },
-                  }}
-                >
-                  <MenuItem value={LANG.EN}>English</MenuItem>
-                  <MenuItem value={LANG.ES}>Spanish</MenuItem>
-                  <MenuItem value={LANG.FR}>French</MenuItem>
-                </Select>
+                {type === TYPE.PASSPHRASE && (
+                  <Select
+                    labelId="genType"
+                    id="language"
+                    value={language}
+                    onChange={(e) => { setLanguage(e.target.value) }}
+                    sx={{
+                      fontSize: '14px',
+                      '&.MuiInputBase-root': {
+                        marginTop: 0,
+                      },
+                    }}
+                  >
+                    <MenuItem value={LANG.EN}>English</MenuItem>
+                    <MenuItem value={LANG.ES}>Spanish</MenuItem>
+                    <MenuItem value={LANG.FR}>French</MenuItem>
+                  </Select>
+                )}
               </Stack>
             </FormControl>
 
