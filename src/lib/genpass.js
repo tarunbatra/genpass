@@ -6,9 +6,9 @@ import { FRENCH } from './dictionary/french'
 import { SPANISH } from './dictionary/spanish'
 import randomBytes from 'randombytes'
 import axios from 'axios'
-import removeAccents from 'remove-accents';
+import removeAccents from 'remove-accents'
 // import checkPwnedPasswords from 'check-pwnedpasswords'
-const crypto = require('crypto');
+const crypto = require('crypto')
 
 /**
  * GenPass
@@ -22,49 +22,75 @@ const crypto = require('crypto');
  * @returns {string} Generated password
  */
 export default async function GenPass({
-                                        type = TYPE.PASSPHRASE,
-                                        length = 4,
-                                        symbols = false,
-                                        numbers = false,
-                                        language = LANG.EN,
-                                        delimeter = '-',
-                                        checkForPwned = false
-                                      } = {}) {
-  let generatedPassword;
+  type = TYPE.PASSPHRASE,
+  length = 4,
+  symbols = false,
+  numbers = false,
+  language = LANG.EN,
+  delimeter = '-',
+  checkForPwned = false
+} = {}) {
+  let generatedPassword
 
   if (checkForPwned && type !== TYPE.PIN) {
-    let generateAnotherPassword = true;
-    let generateCount = 0;
+    let generateAnotherPassword = true
+    let generateCount = 0
 
     while (generateAnotherPassword && generateCount < 5) {
-      generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
+      generatedPassword = generatePassword(
+        type,
+        length,
+        symbols,
+        numbers,
+        language,
+        delimeter
+      )
 
-      const hash = crypto.createHash('sha1').update(generatedPassword).digest('hex').toUpperCase();
-      const range = hash.substr(0, 5);
-      const remainder = hash.substr(5);
+      const hash = crypto
+        .createHash('sha1')
+        .update(generatedPassword)
+        .digest('hex')
+        .toUpperCase()
+      const range = hash.substr(0, 5)
+      const remainder = hash.substr(5)
 
-      const response = await axios.get(`https://api.pwnedpasswords.com/range/${range}`)
-      let pwnedResult = response.data
-      const match = pwnedResult.split('\r\n').find((hashRemainder) => hashRemainder.startsWith(remainder));
-      let pwned = false;
-      let occurrences = 0;
+      const response = await axios.get(
+        `https://api.pwnedpasswords.com/range/${range}`
+      )
+      const pwnedResult = response.data
+      const match = pwnedResult
+        .split('\r\n')
+        .find((hashRemainder) => hashRemainder.startsWith(remainder))
+      let pwned = false
+      let occurrences = 0
       if (match) {
-        pwned = true;
-        occurrences = parseInt(match.split(':')[1], 10);
+        pwned = true
+        occurrences = parseInt(match.split(':')[1], 10)
       }
 
       if (!pwned) {
         generateAnotherPassword = false
       } else {
-        console.debug("generated password '%s' found in pwned list for %d times, generating again", generatedPassword, occurrences)
+        console.debug(
+          "generated password '%s' found in pwned list for %d times, generating again",
+          generatedPassword,
+          occurrences
+        )
       }
-      generateCount++;
+      generateCount++
     }
   } else {
-    generatedPassword = generatePassword(type, length, symbols, numbers, language, delimeter);
+    generatedPassword = generatePassword(
+      type,
+      length,
+      symbols,
+      numbers,
+      language,
+      delimeter
+    )
   }
 
-  return generatedPassword;
+  return generatedPassword
 }
 
 function generatePassword(type, length, symbols, numbers, language, delimeter) {
@@ -80,8 +106,16 @@ function generatePassword(type, length, symbols, numbers, language, delimeter) {
       return passwordWords.join(delimeter)
     }
     case TYPE.RANDOM: {
+      const characters = [srp.upper, srp.lower]
+      if (numbers) {
+        characters.push(srp.digits)
+      }
+      if (symbols) {
+        characters.push(srp.copyableSymbols)
+      }
       return srp.randomString({
         length,
+        characters,
         avoidAmbiguous: true
       })
     }
@@ -153,7 +187,6 @@ function addNumbers(passwordWords = []) {
   return passwordWords.map((word) => leet.encode(word))
 }
 
-
 /**
  * From niceware:
  * Generates a random passphrase with the specified number of bytes.
@@ -162,7 +195,7 @@ function addNumbers(passwordWords = []) {
  * @param {Array} wordlist dictionary
  * @returns {Array.<string>}
  */
-function generatePassphrase(size/* : number */, wordlist) {
+function generatePassphrase(size /* : number */, wordlist) {
   if (typeof size !== 'number' || size < 0 || size > MAX_PASSPHRASE_SIZE) {
     throw new Error(`Size must be between 0 and ${MAX_PASSPHRASE_SIZE} bytes.`)
   }
@@ -180,15 +213,17 @@ function generatePassphrase(size/* : number */, wordlist) {
 function bytesToPassphrase(bytes, wordlist) {
   // XXX: Uint8Array should only be used when this is called in the browser
   // context.
-  if (!Buffer.isBuffer(bytes) &&
-    !(typeof window === 'object' && bytes instanceof window.Uint8Array)) {
+  if (
+    !Buffer.isBuffer(bytes) &&
+    !(typeof window === 'object' && bytes instanceof window.Uint8Array)
+  ) {
     throw new Error('Input must be a Buffer or Uint8Array.')
   }
   if (bytes.length % 2 === 1) {
     throw new Error('Only even-sized byte arrays are supported.')
   }
   const words = []
-  const totalWordsLength = wordlist.length;
+  const totalWordsLength = wordlist.length
   for (const entry of bytes.entries()) {
     const index = entry[0]
     const byte = entry[1]
@@ -196,7 +231,7 @@ function bytesToPassphrase(bytes, wordlist) {
     if (index % 2 === 0) {
       // wordList from our dictionary is small so updated the logic to get the wordIndex
       // const wordIndex = byte * 256 + next
-      const wordIndex = totalWordsLength - ( byte + next )
+      const wordIndex = totalWordsLength - (byte + next)
       const word = wordlist[wordIndex]
       if (!word) {
         throw new Error('Invalid byte encountered')
