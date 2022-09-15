@@ -34,10 +34,10 @@ const PasswordGenerator = (props) => {
         numbers: hasNumbers,
       })
       setGeneratedPassword(password);
+      onPasswordGenerated?.(password);
     } catch (e) {
       console.log(e)
     }
-    onPasswordGenerated?.(password);
   };
 
   const handleCopy = () => {
@@ -61,12 +61,16 @@ const PasswordGenerator = (props) => {
               fontSize: '18px',
               padding: '10px 15px',
               textOverflow: 'ellipsis',
+              zIndex: removeCopy && '1',
             },
             '&.MuiInputBase-root.MuiInputBase-readOnly .MuiOutlinedInput-notchedOutline': {
               backgroundColor: '#e6e6e6',
               borderColor: '#ccc',
               borderRadius: 'inherit',
-              zIndex: '-1',
+              zIndex: !removeCopy && '-1',
+            },
+            '&.MuiInputBase-root.MuiInputBase-readOnly .MuiInputAdornment-root': {
+              zIndex: removeCopy && '1',
             },
           }}
           readOnly
