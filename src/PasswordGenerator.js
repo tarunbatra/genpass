@@ -183,7 +183,7 @@ const PasswordGenerator = (props) => {
             </Stack>}
 
             {type !== TYPE.PASSPHRASE && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
-              <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}>Letters</FormLabel>
+              <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}>{type === TYPE.RANDOM ? 'Letters' : 'Digits'}</FormLabel>
               <OutlinedInput
                 value={letterLength}
                 type="number"
