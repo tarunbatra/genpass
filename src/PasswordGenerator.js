@@ -205,23 +205,23 @@ const PasswordGenerator = (props) => {
               />
             </Stack>}
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
               <FormLabel id="numbersLabel" sx={{ color: '#333', fontSize: '14px' }}>Numbers</FormLabel>
               <Switch
                 checked={hasNumbers}
                 onChange={(e) => { setHasNumbers(e.target.checked); }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
-            </Stack>
+            </Stack>}
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
               <FormLabel id="symbolsLabel" sx={{ color: '#333', fontSize: '14px' }}>Symbols</FormLabel>
               <Switch
                 checked={hasSymbols}
                 onChange={(e) => { setHasSymbols(e.target.checked); }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
-            </Stack>
+            </Stack>}
           </Stack>
         </Box>
       </Stack>
