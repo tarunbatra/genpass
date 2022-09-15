@@ -1,6 +1,6 @@
 import React from 'react'
 import genpass from './lib/genpass';
-import { Box, Button, OutlinedInput, Stack } from '@mui/material';
+import { Box, Button, OutlinedInput, Stack, InputAdornment, IconButton } from '@mui/material';
 import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -39,7 +39,7 @@ const PasswordGenerator = (props) => {
 
   return (
     <form style={{ maxWidth: '320px', margin: '20px' }}>
-      <Stack direction="column" spacing={2}>
+      <Stack direction="column" spacing={1}>
         <OutlinedInput
           type="text"
           value={generatedPassword}
@@ -48,11 +48,11 @@ const PasswordGenerator = (props) => {
             width: '300px',
             '& input.MuiInputBase-readOnly': {
               backgroundColor: '#e6e6e6',
-              borderRadius: 'inherit',
               '-webkit-text-fill-color': '#333',
-              fontSize: '22px',
+              fontSize: '18px',
               padding: '10px',
               textAlign: 'center',
+              textOverflow: 'ellipsis',
             },
             '&.MuiInputBase-root.MuiInputBase-readOnly .MuiOutlinedInput-notchedOutline': {
               borderColor: '#ccc',
@@ -60,42 +60,30 @@ const PasswordGenerator = (props) => {
           }}
           readOnly
           fullWidth
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton size="small" onClick={getNewPasswordAndSetIt}>
+                <ReplayIcon />
+              </IconButton>
+            </InputAdornment>
+          }
         />
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
-        >
-          <Button
-            variant="outlined"
-            startIcon={<ReplayIcon />}
-            onClick={getNewPasswordAndSetIt}
-            sx={{
-              backgroundColor: '#eee',
-              borderColor: '#ccc',
-              color: '#333',
-              padding: '8px 16px',
-              textTransform: 'none',
-            }}
-          >
-            Regenerate
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<ContentCopyIcon />}
-            onClick={handleCopy}
-            sx={{
-              backgroundColor: '#1362dd',
+        <Button
+          variant="contained"
+          startIcon={<ContentCopyIcon />}
+          onClick={handleCopy}
+          sx={{
+            backgroundColor: '#1362dd',
+            boxShadow: '0',
+            padding: '8px 16px',
+            textTransform: 'none',
+            '&:hover, &:active': {
               boxShadow: '0',
-              padding: '8px 16px',
-              textTransform: 'none',
-              '&:hover, &:active': {
-                boxShadow: '0',
-              },
-            }}
-          >
-            Copy
-          </Button>
-        </Stack>
+            },
+          }}
+        >
+          Copy
+        </Button>
         <Box sx={{
           mt: '30px !important',
           backgroundColor: '#f5f5f5',
