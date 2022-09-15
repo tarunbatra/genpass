@@ -19,7 +19,7 @@ const App = () => {
             Use it for any account login &ndash; Okta or anywhere else!
           </p>
           <p className="info-link">
-            <a href="https://www.okta.com/identity-101/what-is-strong-authentication/" target="_blank">&#x1F914; Why is a strong password important?</a>
+            <a href="https://www.okta.com/identity-101/what-is-strong-authentication/" target="_blank">&#x1f4a1; Why is a strong password important?</a>
           </p>
           <footer>
             <p><a href="#">Powered by Okta</a></p>
