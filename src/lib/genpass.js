@@ -6,7 +6,7 @@ import { FRENCH } from './dictionary/french'
 import { SPANISH } from './dictionary/spanish'
 import randomBytes from 'randombytes'
 import axios from 'axios'
-import niceware from 'niceware'
+import removeAccents from 'remove-accents';
 // import checkPwnedPasswords from 'check-pwnedpasswords'
 const crypto = require('crypto');
 
@@ -111,7 +111,7 @@ function getWords(length, language) {
       break
   }
 
-  return generatePassphrase(length * 2, dictionary)
+  return generatePassphrase(length * 2, dictionary.map(removeAccents))
 }
 
 /**
