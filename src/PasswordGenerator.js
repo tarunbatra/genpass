@@ -11,8 +11,8 @@ import Switch from '@mui/material/Switch';
 import { TYPE } from './lib/constants';
 
 const PasswordGenerator = (props) => {
-  const { onPasswordGenerated, requirements } = props;
-  const [type, setType] = React.useState(TYPE.PASSPHRASE);
+  const { onPasswordGenerated, requirements, disableCopy, customType } = props;
+  const [type, setType] = React.useState(customType || TYPE.PASSPHRASE);
   const [letterLength, setLetterLength] = React.useState(requirements?.minLength ?? 10);
   // Math here doesn't guarantee it will be minLength from requirements but should be good enough for demo.
   // We should consider making genpass accept a letter length even when type is passphrase
@@ -85,6 +85,7 @@ const PasswordGenerator = (props) => {
           startIcon={<ContentCopyIcon />}
           onClick={handleCopy}
           sx={{
+            display: disableCopy && 'none',
             backgroundColor: '#1362dd',
             boxShadow: '0',
             padding: '8px 16px',
