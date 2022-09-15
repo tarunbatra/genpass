@@ -11,7 +11,7 @@ import Switch from '@mui/material/Switch';
 import { TYPE } from './lib/constants';
 
 const PasswordGenerator = (props) => {
-  const { onPasswordGenerated, requirements, disableCopy, customType } = props;
+  const { onPasswordGenerated, requirements, removeCopy, customType } = props;
   const [type, setType] = React.useState(customType || TYPE.PASSPHRASE);
   const [letterLength, setLetterLength] = React.useState(requirements?.minLength ?? 10);
   // Math here doesn't guarantee it will be minLength from requirements but should be good enough for demo.
@@ -49,14 +49,13 @@ const PasswordGenerator = (props) => {
   }, [type, letterLength, wordLength, hasSymbols, hasNumbers]);
 
   return (
-    <form style={{ width: '340px', margin: '20px' }}>
+    <form style={{ minWidth: '340px', padding: '20px' }}>
       <Stack direction="column" spacing={1}>
         <OutlinedInput
           type="text"
           value={generatedPassword}
           sx={{
             borderRadius: '7px',
-            width: '340px',
             '& input.MuiInputBase-readOnly': {
               '-webkit-text-fill-color': '#333',
               fontSize: '18px',
@@ -85,7 +84,7 @@ const PasswordGenerator = (props) => {
           startIcon={<ContentCopyIcon />}
           onClick={handleCopy}
           sx={{
-            display: disableCopy && 'none',
+            display: removeCopy && 'none',
             backgroundColor: '#1362dd',
             boxShadow: '0',
             padding: '8px 16px',
