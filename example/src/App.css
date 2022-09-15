@@ -36,9 +36,10 @@ main {
 }
 
 .copy h3 {
-  font-size: 18px;
+  font-size: 16px;
   color: #444;
-  margin-top: 50px;
+  margin-top: 48px;
+  font-weight: normal;
 }
 
 .password-generator {
@@ -65,6 +66,6 @@ div.MuiFormControl-root {
 }
 .copy .info-link a {
   text-decoration: none;
-  color: #6e6e78;
+  color: #1662DD;
 }
 
