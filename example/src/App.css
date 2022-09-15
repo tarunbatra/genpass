@@ -63,3 +63,8 @@ footer {
 div.MuiFormControl-root {
   padding-bottom: 12px;
 }
+.copy .info-link a {
+  text-decoration: none;
+  color: #6e6e78;
+}
+

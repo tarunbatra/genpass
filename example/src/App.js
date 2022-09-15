@@ -18,6 +18,9 @@ const App = () => {
             This password is not saved or seen on our servers.
             Use it for any account login &ndash; Okta or anywhere else!
           </p>
+          <p className="info-link">
+            <a href="https://www.okta.com/identity-101/what-is-strong-authentication/" target="_blank">&#x1F914; Why is a strong password important?</a>
+          </p>
           <footer>
             <p><a href="#">Powered by Okta</a></p>
             <p><a href="#">Privacy Policy</a></p>
