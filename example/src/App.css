@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   max-width: 860px;
   height: 100vh;
@@ -15,7 +17,6 @@ p {
 }
 
 main {
-  margin-top: 300px;
   display: flex;
   gap: 68px;
 }
