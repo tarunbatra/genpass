@@ -11,15 +11,22 @@ import Switch from '@mui/material/Switch';
 import { TYPE } from './lib/constants';
 
 const PasswordGenerator = (props) => {
+  const { onPasswordGenerated, requirements } = props;
   const [type, setType] = React.useState(TYPE.PASSPHRASE);
-  const [length, setLength] = React.useState(4);
-  const [hasSymbols, setHasSymbols] = React.useState(false);
-  const [hasNumbers, setHasNumbers] = React.useState(false);
+  const [length, setLength] = React.useState(requirements?.minLength ?? 4);
+  const [hasSymbols, setHasSymbols] = React.useState(
+    Boolean(requirements?.minSymbol)
+  )
+  const [hasNumbers, setHasNumbers] = React.useState(
+    Boolean(requirements?.minNumber)
+  )
   const [generatedPassword, setGeneratedPassword] = React.useState('');
 
   const getNewPasswordAndSetIt = async () => {
-    const password = await genpass({ type, length, symbols: hasSymbols, numbers: hasNumbers });
+    const password = await genpass({ type, length, symbols: hasSymbols, numbers: hasNumbers })
+      .catch((error) => { console.log(error); return ''; });
     setGeneratedPassword(password);
+    onPasswordGenerated?.(password);
   };
 
   const handleCopy = () => {
@@ -132,7 +139,7 @@ const PasswordGenerator = (props) => {
                 type="number"
                 inputMode="numeric"
                 id="length"
-                onChange={(e) => { setLength(e.target.value) }}
+                onChange={(e) => { setLength(Number(e.target.value ?? 0)) }}
                 size="small"
                 sx={{
                   backgroundColor: '#fff',
