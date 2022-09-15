@@ -31,8 +31,10 @@ main {
 }
 
 .copy h2 {
-  font-size: 28px;
+  font-size: 32px;
   color: rgb(0, 41, 122);
+  font-weight: 500;
+  margin: 16px auto;
 }
 
 .copy h3 {
