@@ -47,15 +47,16 @@ const PasswordGenerator = (props) => {
             borderRadius: '7px',
             width: '340px',
             '& input.MuiInputBase-readOnly': {
-              backgroundColor: '#e6e6e6',
               '-webkit-text-fill-color': '#333',
               fontSize: '18px',
-              padding: '10px',
-              textAlign: 'center',
+              padding: '10px 15px',
               textOverflow: 'ellipsis',
             },
             '&.MuiInputBase-root.MuiInputBase-readOnly .MuiOutlinedInput-notchedOutline': {
+              backgroundColor: '#e6e6e6',
               borderColor: '#ccc',
+              borderRadius: 'inherit',
+              zIndex: '-1',
             },
           }}
           readOnly
