@@ -17,11 +17,11 @@ p {
 main {
   margin-top: 300px;
   display: flex;
-  gap: 108px;
+  gap: 68px;
 }
 
 .copy {
-  max-width: 400px;
+  width: 400px;
   margin-top: 20px;
 }
 
@@ -44,7 +44,6 @@ main {
 .password-generator {
   border: 1px solid #ccc;
   border-radius: 20px;
-  padding: 5px;
   min-height: 350px;
 }
 

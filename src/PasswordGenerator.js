@@ -38,14 +38,14 @@ const PasswordGenerator = (props) => {
   }, [type, length, hasSymbols, hasNumbers]);
 
   return (
-    <form style={{ maxWidth: '320px', margin: '20px' }}>
+    <form style={{ width: '340px', margin: '20px' }}>
       <Stack direction="column" spacing={1}>
         <OutlinedInput
           type="text"
           value={generatedPassword}
           sx={{
             borderRadius: '7px',
-            width: '300px',
+            width: '340px',
             '& input.MuiInputBase-readOnly': {
               backgroundColor: '#e6e6e6',
               '-webkit-text-fill-color': '#333',
