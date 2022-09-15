@@ -231,7 +231,11 @@ function bytesToPassphrase(bytes, wordlist) {
     if (index % 2 === 0) {
       // wordList from our dictionary is small so updated the logic to get the wordIndex
       // const wordIndex = byte * 256 + next
-      const wordIndex = totalWordsLength - (byte + next)
+
+      const wordIndex =
+        totalWordsLength === 256 * 256
+          ? byte * 256 + next
+          : Math.floor(((totalWordsLength * byte) / next) % totalWordsLength)
       const word = wordlist[wordIndex]
       if (!word) {
         throw new Error('Invalid byte encountered')
