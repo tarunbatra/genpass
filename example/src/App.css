@@ -60,3 +60,6 @@ footer {
   color: #6e6e78;
   text-decoration: none;
 }
+div.MuiFormControl-root {
+  padding-bottom: 12px;
+}

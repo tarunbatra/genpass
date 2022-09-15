@@ -52,7 +52,7 @@ const PasswordGenerator = (props) => {
   }, [type, letterLength, wordLength, hasSymbols, hasNumbers, language]);
 
   return (
-    <form style={{ minWidth: '350px', padding: '20px' }}>
+    <form style={{ minWidth: '340px', padding: '20px' }}>
       <Stack direction="column" spacing={1}>
         <OutlinedInput
           type="text"
@@ -109,7 +109,7 @@ const PasswordGenerator = (props) => {
           borderRadius: '10px',
           padding: '15px',
         }}>
-          <Stack direction="column" spacing={2}>
+          <Stack direction="column" spacing={1}>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
               <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="baseline" gap={2}>
                 <FormLabel
