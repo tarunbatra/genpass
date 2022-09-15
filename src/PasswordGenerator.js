@@ -29,6 +29,7 @@ const PasswordGenerator = (props) => {
   const getNewPasswordAndSetIt = async () => {
     try {
       const password = await genpass({
+        checkForPwnded: true,
         type,
         language,
         length: type === TYPE.PASSPHRASE ? wordLength: letterLength,
