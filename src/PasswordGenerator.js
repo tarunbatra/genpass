@@ -35,6 +35,7 @@ const PasswordGenerator = (props) => {
         length: type === TYPE.PASSPHRASE ? wordLength: letterLength,
         symbols: hasSymbols,
         numbers: hasNumbers,
+        checkForPwned: true
       })
       setGeneratedPassword(password);
       onPasswordGenerated?.(password);
