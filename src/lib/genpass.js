@@ -101,11 +101,6 @@ function generatePassword(type, length, symbols, numbers, language, delimeter) {
  * @returns {Array} Array of words
  */
 function getWords(length, language) {
-
-  if (language !== LANG.ES || language !== LANG.FR) {
-    return niceware.generatePassphrase(length * 2)
-  }
-
   let dictionary = ENGLISH
   switch (language) {
     case LANG.FR:

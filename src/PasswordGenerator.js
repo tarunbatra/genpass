@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Switch from '@mui/material/Switch';
-import { TYPE } from './lib/constants';
+import { LANG, TYPE } from './lib/constants';
 
 const PasswordGenerator = (props) => {
   const { onPasswordGenerated, requirements, removeCopy, customType } = props;
@@ -24,11 +24,13 @@ const PasswordGenerator = (props) => {
     Boolean(requirements?.minNumber)
   )
   const [generatedPassword, setGeneratedPassword] = React.useState('');
+  const [language, setLanguage] = React.useState(LANG.EN);
 
   const getNewPasswordAndSetIt = async () => {
     try {
       const password = await genpass({
         type,
+        language,
         length: type === TYPE.PASSPHRASE ? wordLength: letterLength,
         symbols: hasSymbols,
         numbers: hasNumbers,
@@ -46,7 +48,7 @@ const PasswordGenerator = (props) => {
 
   React.useEffect(() => {
     getNewPasswordAndSetIt();
-  }, [type, letterLength, wordLength, hasSymbols, hasNumbers]);
+  }, [type, letterLength, wordLength, hasSymbols, hasNumbers, language]);
 
   return (
     <form style={{ minWidth: '340px', padding: '20px' }}>
@@ -107,6 +109,34 @@ const PasswordGenerator = (props) => {
           padding: '15px',
         }}>
           <Stack direction="column" spacing={2}>
+            <FormControl variant="standard" sx={{ minWidth: 120 }}>
+              <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="baseline" gap={2}>
+                <FormLabel
+                  id="language"
+                  sx={{
+                    color: '#777',
+                    fontSize: '14px',
+                  }}>
+                  Language
+                </FormLabel>
+                <Select
+                  labelId="genType"
+                  id="type"
+                  value={language}
+                  onChange={(e) => { setLanguage(e.target.value) }}
+                  sx={{
+                    fontSize: '14px',
+                    '&.MuiInputBase-root': {
+                      marginTop: 0,
+                    },
+                  }}
+                >
+                  <MenuItem value={LANG.EN}>English</MenuItem>
+                  <MenuItem value={LANG.ES}>Spanish</MenuItem>
+                  <MenuItem value={LANG.FR}>French</MenuItem>
+                </Select>
+              </Stack>
+            </FormControl>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
               <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="baseline" gap={2}>
                 <FormLabel
