@@ -52,7 +52,7 @@ const PasswordGenerator = (props) => {
   }, [type, letterLength, wordLength, hasSymbols, hasNumbers, language]);
 
   return (
-    <form style={{ minWidth: '340px', padding: '20px' }}>
+    <form style={{ minWidth: '320px', padding: '20px' }}>
       <Stack direction="column" spacing={1}>
         <OutlinedInput
           type="text"
@@ -62,7 +62,7 @@ const PasswordGenerator = (props) => {
             '& input.MuiInputBase-readOnly': {
               '-webkit-text-fill-color': '#333',
               fontSize: '18px',
-              padding: '10px 15px',
+              padding: '10px 0px 10px 15px',
               textOverflow: 'ellipsis',
               zIndex: removeCopy && '1',
             },
@@ -104,7 +104,7 @@ const PasswordGenerator = (props) => {
           Copy
         </Button>
         <Box sx={{
-          mt: '30px !important',
+          mt: '24px !important',
           backgroundColor: '#f5f5f5',
           borderRadius: '10px',
           padding: '15px',
