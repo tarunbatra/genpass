@@ -26,7 +26,7 @@ main {
 }
 
 .copy p {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -49,11 +49,14 @@ main {
 
 footer {
   margin-top: auto;
-  margin-bottom: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
 }
-
-footer p {
-  font-size: 14px;
+.copy footer p {
+  font-size: 12px;
+  margin-right: 12px;
+}
+.copy footer p a {
+  color: #6e6e78;
+  text-decoration: none;
 }
