@@ -109,6 +109,7 @@ const PasswordGenerator = (props) => {
           backgroundColor: '#f5f5f5',
           borderRadius: '10px',
           padding: '15px',
+          height: '170px',
         }}>
           <Stack direction="column" spacing={1}>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
