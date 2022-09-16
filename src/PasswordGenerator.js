@@ -113,7 +113,7 @@ const PasswordGenerator = (props) => {
         }}>
           <Stack direction="column" spacing={1}>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
-              <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="baseline" gap={2}>
+              <Stack direction="row"  alignItems="baseline" gap={2}>
                 <FormLabel
                   id="genType"
                   sx={{
@@ -159,7 +159,7 @@ const PasswordGenerator = (props) => {
               </Stack>
             </FormControl>
 
-            {type === TYPE.PASSPHRASE && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type === TYPE.PASSPHRASE && <Stack direction="row" justifyContent="space-between" alignItems="baseline">
               <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}> Words</FormLabel>
               <OutlinedInput
                 value={wordLength}
@@ -183,7 +183,7 @@ const PasswordGenerator = (props) => {
               />
             </Stack>}
 
-            {type !== TYPE.PASSPHRASE && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PASSPHRASE && <Stack direction="row" justifyContent="space-between" alignItems="baseline">
               <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}>{type === TYPE.RANDOM ? 'Letters' : 'Digits'}</FormLabel>
               <OutlinedInput
                 value={letterLength}
@@ -207,7 +207,7 @@ const PasswordGenerator = (props) => {
               />
             </Stack>}
 
-            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction="row" justifyContent="space-between" alignItems="baseline">
               <FormLabel id="numbersLabel" sx={{ color: '#333', fontSize: '14px' }}>Numbers</FormLabel>
               <Switch
                 checked={hasNumbers}
@@ -216,7 +216,7 @@ const PasswordGenerator = (props) => {
               />
             </Stack>}
 
-            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction="row" justifyContent="space-between" alignItems="baseline">
               <FormLabel id="symbolsLabel" sx={{ color: '#333', fontSize: '14px' }}>Symbols</FormLabel>
               <Switch
                 checked={hasSymbols}
