@@ -2,10 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  max-width: 860px;
   height: 100vh;
   margin: 0 auto;
+}
+
+@media (min-width: 880px) {
+  .container {
+    max-width: 860px;
+    flex-direction: column;
+  }
 }
 
 #logo {
@@ -16,14 +21,26 @@ p {
   color: #666;
 }
 
-main {
-  display: flex;
-  gap: 68px;
+@media (max-width: 880px) {
+  main {
+    padding: 36px 48px;
+  }
 }
 
-.copy {
-  width: 400px;
-  margin-top: 20px;
+@media (min-width: 880px) {
+  main {
+    display: flex;
+    gap: 68px;
+  }
+
+  .copy {
+    width: 400px;
+    margin-top: 20px;
+  }
+
+  .copy h3 {
+    margin-top: 48px;
+  }
 }
 
 .copy p {
@@ -41,7 +58,6 @@ main {
 .copy h3 {
   font-size: 16px;
   color: #444;
-  margin-top: 48px;
   font-weight: normal;
 }
 
@@ -71,4 +87,3 @@ div.MuiFormControl-root {
   text-decoration: none;
   color: #1662DD;
 }
-
