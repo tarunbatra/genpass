@@ -68,13 +68,13 @@ p {
 }
 
 footer {
-  margin-top: auto;
+  margin-top: 40px;
   display: flex;
   justify-content: start;
 }
 .copy footer p {
   font-size: 12px;
-  margin-right: 12px;
+  margin-right: 30px;
 }
 .copy footer p a {
   color: #6e6e78;

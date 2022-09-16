@@ -35,6 +35,7 @@ const PasswordGenerator = (props) => {
         length: type === TYPE.PASSPHRASE ? wordLength: letterLength,
         symbols: hasSymbols,
         numbers: hasNumbers,
+        checkForPwned: true
       })
       setGeneratedPassword(password);
       onPasswordGenerated?.(password);
@@ -136,22 +137,24 @@ const PasswordGenerator = (props) => {
                   <MenuItem value={TYPE.RANDOM}>Random password</MenuItem>
                   <MenuItem value={TYPE.PIN}>PIN</MenuItem>
                 </Select>
-                <Select
-                  labelId="genType"
-                  id="language"
-                  value={language}
-                  onChange={(e) => { setLanguage(e.target.value) }}
-                  sx={{
-                    fontSize: '14px',
-                    '&.MuiInputBase-root': {
-                      marginTop: 0,
-                    },
-                  }}
-                >
-                  <MenuItem value={LANG.EN}>English</MenuItem>
-                  <MenuItem value={LANG.ES}>Spanish</MenuItem>
-                  <MenuItem value={LANG.FR}>French</MenuItem>
-                </Select>
+                {type === TYPE.PASSPHRASE && (
+                  <Select
+                    labelId="genType"
+                    id="language"
+                    value={language}
+                    onChange={(e) => { setLanguage(e.target.value) }}
+                    sx={{
+                      fontSize: '14px',
+                      '&.MuiInputBase-root': {
+                        marginTop: 0,
+                      },
+                    }}
+                  >
+                    <MenuItem value={LANG.EN}>English</MenuItem>
+                    <MenuItem value={LANG.ES}>Spanish</MenuItem>
+                    <MenuItem value={LANG.FR}>French</MenuItem>
+                  </Select>
+                )}
               </Stack>
             </FormControl>
 
@@ -180,7 +183,7 @@ const PasswordGenerator = (props) => {
             </Stack>}
 
             {type !== TYPE.PASSPHRASE && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
-              <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}>Letters</FormLabel>
+              <FormLabel id="lengthLabel" sx={{ color: '#333', fontSize: '14px' }}>{type === TYPE.RANDOM ? 'Letters' : 'Digits'}</FormLabel>
               <OutlinedInput
                 value={letterLength}
                 type="number"
@@ -203,23 +206,23 @@ const PasswordGenerator = (props) => {
               />
             </Stack>}
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
               <FormLabel id="numbersLabel" sx={{ color: '#333', fontSize: '14px' }}>Numbers</FormLabel>
               <Switch
                 checked={hasNumbers}
                 onChange={(e) => { setHasNumbers(e.target.checked); }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
-            </Stack>
+            </Stack>}
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
+            {type !== TYPE.PIN && <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="baseline">
               <FormLabel id="symbolsLabel" sx={{ color: '#333', fontSize: '14px' }}>Symbols</FormLabel>
               <Switch
                 checked={hasSymbols}
                 onChange={(e) => { setHasSymbols(e.target.checked); }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
-            </Stack>
+            </Stack>}
           </Stack>
         </Box>
       </Stack>
